@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundCloud Header Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "./ImageHandler.js": "./ImageHandler.js",
+            "./CanvasRenderer.js": "./CanvasRenderer.js",
+            "./EventManager.js": "./EventManager.js",
+            "./ExportManager.js": "./ExportManager.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="editor-container">
+        <div class="header-section">
+            <h1>Create Your Custom, Seamless Soundcloud Banner</h1>
+            <p>Generate seamless banners that align perfectly with SoundCloud's new layout.</p>
+        </div>
+
+        <div class="preview-area">
+            <canvas id="headerCanvas" width="1240" height="254"></canvas>
+            
+            <input type="file" id="headerImageUpload" accept="image/*" style="display: none;">
+            <input type="file" id="pfpImageUpload" accept="image/*" style="display: none;">
+        </div>
+
+        <div class="controls-bar">
+            <div class="left-controls">
+                <button class="control-btn" id="removeBorder" title="Remove Profile Border">
+                    <span class="circles-outline-icon"></span>
+                </button>
+                <button class="control-btn" id="zoomOut">−</button>
+                <button class="control-btn" id="zoomIn">+</button>
+                <button class="control-btn" id="flipHeader">↔</button>
+                <button class="control-btn" id="toggleShadow" title="Toggle Profile Shadow">
+                    <span class="shadow-icon"></span>
+                </button>
+                <select id="borderEffect" class="border-effect-dropdown">
+                    <option value="none">No Profile Image Effect</option>
+                    <option value="blck-cld-ring">BLCK CLD COLLECTIVE Ring</option>
+                    <option value="displacement">Displacement Background</option>
+                </select>
+            </div>
+            <div class="right-controls">
+                <button class="save-btn" id="saveHeader">Export</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
