@@ -16,14 +16,20 @@ export class EventManager {
         document.getElementById('zoomOut').addEventListener('click', () => this.headerEditor.zoom(0.9));
         document.getElementById('flipHeader').addEventListener('click', () => this.headerEditor.flipHeader());
         document.getElementById('toggleShadow').addEventListener('click', () => this.headerEditor.togglePfpShadow());
+        document.getElementById('toggleTextBlend').addEventListener('click', () => this.headerEditor.toggleTextRingBlendMode());
         document.getElementById('saveHeader').addEventListener('click', () => this.headerEditor.exportManager.saveImage());
         document.getElementById('borderEffect').addEventListener('change', (e) => {
             this.headerEditor.borderEffect = e.target.value;
             this.toggleBorderColorPicker();
+            this.toggleBlurSlider();
             this.headerEditor.renderer.drawCanvas();
         });
         document.getElementById('borderColor').addEventListener('change', (e) => {
             this.headerEditor.borderColor = e.target.value;
+            this.headerEditor.renderer.drawCanvas();
+        });
+        document.getElementById('blurIntensity').addEventListener('input', (e) => {
+            this.headerEditor.blurIntensity = parseInt(e.target.value);
             this.headerEditor.renderer.drawCanvas();
         });
 
@@ -44,10 +50,27 @@ export class EventManager {
 
     toggleBorderColorPicker() {
         const colorPicker = document.getElementById('borderColor');
+        const textBlendBtn = document.getElementById('toggleTextBlend');
         if (this.headerEditor.borderEffect === 'border') {
             colorPicker.style.display = 'inline-block';
         } else {
             colorPicker.style.display = 'none';
+        }
+        
+        if (this.headerEditor.borderEffect === 'blck-cld-ring') {
+            textBlendBtn.style.display = 'inline-block';
+            textBlendBtn.classList.toggle('active', this.headerEditor.textRingBlendMode);
+        } else {
+            textBlendBtn.style.display = 'none';
+        }
+    }
+
+    toggleBlurSlider() {
+        const blurSlider = document.getElementById('blurIntensity');
+        if (this.headerEditor.borderEffect === 'blur-backdrop') {
+            blurSlider.style.display = 'inline-block';
+        } else {
+            blurSlider.style.display = 'none';
         }
     }
 
