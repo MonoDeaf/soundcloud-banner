@@ -143,8 +143,8 @@ export class ExportManager {
         // Draw border effect on export pfp
         if (this.headerEditor.borderEffect === 'blck-cld-ring') {
             const text = "BLCK CLD COLLECTIVE";
-            const exportPfpRadius = 400; // Radius for 1000x1000 canvas
-            const textRadius = exportPfpRadius - 30; // Distance from center to text (inside circle, moved closer to border)
+            const exportCanvasRadius = 500; // Full radius for 1000x1000 canvas
+            const textRadius = exportCanvasRadius - 60; // Distance from center to text (increased from exportPfpRadius - 30)
             const fontSize = 56; // Significantly increased font size for export visibility
             
             pfpCtx.save();
@@ -170,6 +170,17 @@ export class ExportManager {
                 pfpCtx.restore();
             }
             
+            pfpCtx.restore();
+        }
+
+        // Draw inner border effect on export pfp if selected
+        if (this.headerEditor.borderEffect === 'border') {
+            pfpCtx.save();
+            pfpCtx.strokeStyle = this.headerEditor.borderColor;
+            pfpCtx.lineWidth = 15; // Scaled up for export (6px * 2.5 scale factor)
+            pfpCtx.beginPath();
+            pfpCtx.arc(500, 500, 500 - 7.5, 0, Math.PI * 2); // Offset by half line width to keep inside
+            pfpCtx.stroke();
             pfpCtx.restore();
         }
         

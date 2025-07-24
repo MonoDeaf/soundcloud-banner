@@ -184,13 +184,26 @@ export class CanvasRenderer {
         if (this.headerEditor.pfpBorderVisible) {
             this.ctx.strokeStyle = '#333';
             this.ctx.lineWidth = 2; // Thinner border for smaller canvas
+            this.ctx.setLineDash([8, 4]); // Add dashed pattern
             this.ctx.beginPath();
             this.ctx.arc(pfpX, pfpY, pfpRadius, 0, Math.PI * 2);
             this.ctx.stroke();
+            this.ctx.setLineDash([]); // Reset line dash
         }
 
         // Draw border effect
         this.drawBorderEffect(pfpX, pfpY, pfpRadius);
+
+        // Draw inner border effect if selected
+        if (this.headerEditor.borderEffect === 'border') {
+            this.ctx.save();
+            this.ctx.strokeStyle = this.headerEditor.borderColor;
+            this.ctx.lineWidth = 6;
+            this.ctx.beginPath();
+            this.ctx.arc(pfpX, pfpY, pfpRadius - 3, 0, Math.PI * 2); // Offset by half line width to keep inside
+            this.ctx.stroke();
+            this.ctx.restore();
+        }
 
         // Draw example account details to the right of pfp (visual reference only) - only when header image is present
         if (this.headerEditor.headerImage) {

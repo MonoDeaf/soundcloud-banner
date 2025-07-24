@@ -24,6 +24,7 @@ class HeaderEditor {
         this.hasDragged = false; // Track if actual dragging occurred
         this.pfpBorderVisible = true; // New property to control border visibility
         this.pfpShadowVisible = false; // New property to control shadow visibility
+        this.borderColor = '#ff6600'; // New property for border color
         
         // Initialize modules
         this.imageHandler = new ImageHandler(this);

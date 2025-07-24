@@ -19,6 +19,11 @@ export class EventManager {
         document.getElementById('saveHeader').addEventListener('click', () => this.headerEditor.exportManager.saveImage());
         document.getElementById('borderEffect').addEventListener('change', (e) => {
             this.headerEditor.borderEffect = e.target.value;
+            this.toggleBorderColorPicker();
+            this.headerEditor.renderer.drawCanvas();
+        });
+        document.getElementById('borderColor').addEventListener('change', (e) => {
+            this.headerEditor.borderColor = e.target.value;
             this.headerEditor.renderer.drawCanvas();
         });
 
@@ -35,6 +40,15 @@ export class EventManager {
             this.drag(e.touches[0]);
         });
         this.canvas.addEventListener('touchend', () => this.endDrag());
+    }
+
+    toggleBorderColorPicker() {
+        const colorPicker = document.getElementById('borderColor');
+        if (this.headerEditor.borderEffect === 'border') {
+            colorPicker.style.display = 'inline-block';
+        } else {
+            colorPicker.style.display = 'none';
+        }
     }
 
     handleCanvasClick(e) {
@@ -153,7 +167,9 @@ export class EventManager {
         }
         
         if (this.headerEditor.dragTarget === 'header') {
-            this.headerEditor.headerOffsetX += deltaX;
+            // Invert X movement when header is flipped to match the visual transformation
+            const adjustedDeltaX = this.headerEditor.headerFlipped ? -deltaX : deltaX;
+            this.headerEditor.headerOffsetX += adjustedDeltaX;
             this.headerEditor.headerOffsetY += deltaY;
         } else if (this.headerEditor.dragTarget === 'pfp') {
             this.headerEditor.pfpOffsetX += deltaX;
