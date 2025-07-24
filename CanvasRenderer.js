@@ -28,11 +28,14 @@ export class CanvasRenderer {
         // Draw striped pattern as header background - only when header image is present
         if (this.headerEditor.headerImage) {
             this.ctx.save();
-            this.ctx.strokeStyle = '#333';
+            this.ctx.fillStyle = '#ff000020';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            
+            this.ctx.strokeStyle = '#ff0000';
             this.ctx.lineWidth = 1;
             
             // Draw diagonal stripes with increased spacing
-            const stripeSpacing = 25;
+            const stripeSpacing = 18;
             const canvasMax = Math.max(this.canvas.width, this.canvas.height);
             
             this.ctx.beginPath();
